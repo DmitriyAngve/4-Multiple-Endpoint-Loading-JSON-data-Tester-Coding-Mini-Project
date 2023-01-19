@@ -1,6 +1,15 @@
 const btn = document.querySelector(".btn");
 const urls = [
-  { url: "https://www.discoveryvip.com/shared/books2.json", arr: "books" },
+  {
+    url: "https://www.discoveryvip.com/shared/books2.json",
+    arr: "books",
+    title: "Books List",
+  },
+  {
+    url: "https://www.discoveryvip.com/shared/1people.json",
+    arr: "data",
+    title: "Friends List",
+  },
 ];
 const output = document.querySelector(".output");
 const inputVal = document.querySelector(".val");
@@ -9,18 +18,21 @@ inputVal.value = "test";
 btn.textContent = "Click Me";
 btn.addEventListener("click", (e) => {
   console.log("ready");
-  const temp = urls[0];
+  const temp = urls[1];
   console.log(temp);
-  myURL(urls);
+  myURL(urls[1]);
 });
 
-function myURL(url) {
+function myURL(myObj) {
+  let url = myObj.url;
   fetch(url)
     .then((rep) => rep.text())
     .then((data) => {
-      const json = JSON.parse(data);
+      let val = data.replace(/\s/g, "");
+      const json = JSON.parse(val);
+      //   console.log(json[myObj.arr]);
+      //   console.log(json);
       console.log(json);
-      console.log(data);
     })
     .catch((err) => {
       console.log(err);
